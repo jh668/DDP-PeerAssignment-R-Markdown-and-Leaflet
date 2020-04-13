@@ -1,0 +1,44 @@
+---
+title: "DDP-Week2-Leaflet"
+author: "jh"
+date: "4/12/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## DDP Week 2 Assignment: R Markdown and Leaflet
+## by JH
+
+In this assignment, I create a web page using R Markdown that features a map created with Leaflet. The map shows the locations of REI stores in Los Angeles.
+
+```{r, echo=FALSE}
+library(leaflet)
+
+REIIcon <- makeIcon(
+        iconUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/REI_logo.svg/340px-REI_logo.svg.png",
+        iconWidth = 31, iconHeight = 31,
+        iconAnchorX = 31/2, iconAnchorY = 31/2,
+)
+
+LAREISites <- c(
+        "<a href='https://www.rei.com/stores/santa-monica.html'>REI Santa Monica</a>",
+        "<a href='https://www.rei.com/stores/burbank.html'>REI Burbank</a>",
+        "<a href='https://www.rei.com/stores/manhattan-beach.html'>REI Manhattan Beach</a>",
+        "<a href='https://www.rei.com/stores/woodland-hills.html'>REI Woodland Hills</a>",
+        "<a href='https://www.rei.com/stores/northridge.html'>REI Northridge</a>",
+        "<a href='https://www.rei.com/stores/arcadia.html'>REI Arcadia</a>"
+)
+
+LAREILatLong <- data.frame(
+        lat = c(33.9416,34.192580,33.900750,34.183576,34.258889,34.142789),
+        lng = c(-118.4085,-118.332406,-118.379816,-118.605101,-118.538488,-118.031102)
+)
+
+LAREILatLong %>% 
+        leaflet() %>%
+        addTiles() %>%
+        addMarkers(icon=REIIcon, popup = LAREISites)
+```
